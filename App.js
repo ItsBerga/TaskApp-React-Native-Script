@@ -17,7 +17,7 @@ export default function App() {
       ...listaCorrente,
       {
         text: testoInserito,
-        id: Math.random().toString,
+        id: Math.random().toString(),
       },
     ]);
   }
