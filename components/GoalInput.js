@@ -1,39 +1,85 @@
 import { useState } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  Modal,
+  ImageBackground,
+} from "react-native";
 
 export default function GoalInput(props) {
+  const image = {
+    uri: "https://www.traccedisardegna.it/sites/default/files/logo/spiaggia_pollu_lotzorai.jpg",
+  };
+  // definiamo una variabile che memorizza lo stato del campo di testo
   const [testoInserito, setTesto] = useState("");
-  function testoModificaHandler(testo) {
+
+  //handler: gestore dell'evento ChangeText (testo cambiato)
+  function handlerTestoModificato(testo) {
     setTesto(testo);
   }
+
   function aggiungiObiettivo() {
-    props.HandlerBottonePremuto(testoInserito);
+    props.handlerBottonePremuto(testoInserito);
     setTesto("");
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.titolo}
-        placeholder="Scrivi una task..."
-        onChangeText={testoModificaHandler}
-        value={testoInserito}
-      ></TextInput>
-      <Button title="Toccami" onPress={aggiungiObiettivo}></Button>
-    </View>
+    <Modal visible={props.visibile} animationType="slide">
+      <ImageBackground source={image} resizeMode="cover" style={s.image}>
+        <View style={s.inputContainer}>
+          <TextInput
+            style={s.textInput}
+            placeholder="Scrivi i tuoi obbiettivi"
+            onChangeText={handlerTestoModificato}
+            value={testoInserito}
+          />
+          <View style={s.buttonContainer}>
+            <View style={s.button}>
+              <Button title="add" color={'green'} onPress={aggiungiObiettivo} />
+            </View>
+            <View style={s.button}>
+              <Button title="exit" color={'red'} onPress={props.chiudiFinestra} />
+            </View>
+          </View>
+        </View>
+      </ImageBackground>
+    </Modal>
   );
 }
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
   inputContainer: {
-    flex: 2,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    alignItem: "center",
     marginBottom: 24,
+    padding: 16,
     borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
   },
-  goalsContainer: {
-    flex: 5,
+  textInput: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    width: "100%",
+    padding: 8,
+    color:'black',
+    backgroundColor:'white'
+  },
+  buttonContainer: {
+    marginTop: 16,
+    flexDirection: "row",
+  },
+  button: {
+    opacity:10,
+    width: 100,
+    marginHorizontal: 8,
+    borderWidth: 2,
+    borderColor:'white'
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
   },
 });

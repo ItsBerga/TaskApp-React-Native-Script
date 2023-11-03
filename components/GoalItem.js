@@ -1,29 +1,30 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
-export default function GoalsItem(props) {
-  console.log(props);
-  // style={({pressed})=>pressed && styles.pressedItem} if is pressed do the opacity in the styles.pressedItem
-  //in js tutto quello che diverso da zero è vero !
+
+export default function GoalItem(props) {
   return (
-    <Pressable onPress={props.onDeleteItem.bind(this, props.id)} android_ripple={{color:'#210644'}} style={({pressed})=>pressed && styles.pressedItem}>
-      <View style={styles.goalItem}>
-        <Text style={styles.goalText}>- {props.text}</Text>
+    <Pressable
+      onPress={props.onDeleteItem.bind(this, props.id)}
+      android_ripple={{ color: "#210644" }}
+      style={({ pressed }) => pressed && s.pressedItem}
+    >
+      <View style={s.goalItem}>
+        <Text style={s.goalText}>{props.text}</Text>
       </View>
     </Pressable>
   );
 }
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
   goalItem: {
     margin: 8,
     padding: 8,
     borderRadius: 6,
-    backgroundColor: "purple",
+    backgroundColor: "white",
   },
   goalText: {
-    color: "white",
-    padding:8
+    color: "green",
   },
-  pressedItem:{
-    opacity:0.5,
-  }
+  pressedItem: {
+    opacity: 0.5,
+  },
 });

@@ -7,12 +7,27 @@ import {
   TextInput,
   View,
   FlatList,
+  Modal,
+  ImageBackground,
 } from "react-native";
 import { useState } from "react";
 export default function App() {
-  const [listaObbiettivi, setLista] = useState([]);
-  function HandlerBottonePremuto(testoInserito) {
-    console.log(testoInserito);
+  const image = { uri: "https://www.traccedisardegna.it/sites/default/files/logo/spiaggia_pollu_lotzorai.jpg" };
+  //definiamo una maviabile che ememorizza lo stato del campo di testo
+  const [listaObiettivi, setLista] = useState([]);
+
+  const [finestraVisibile, setFinestraVisibile] = useState(false);
+
+  function apriFinestra() {
+    setFinestraVisibile(true);
+  }
+
+  function chiudiFinestra() {
+    setFinestraVisibile(false);
+  }
+
+  //gestore del bottone
+  function handlerBottonePremuto(testoInserito) {
     setLista((listaCorrente) => [
       ...listaCorrente,
       {
@@ -20,39 +35,71 @@ export default function App() {
         id: Math.random().toString(),
       },
     ]);
+    setFinestraVisibile(false);
   }
+
+  //gestore cancellazione obiettivi
   function handlerCancellaGoal(id) {
     setLista((listaCorrente) => {
-      return listaCorrente.filter((obiettivo)=>obiettivo.id!==id);
+      return listaCorrente.filter((obiettivo) => obiettivo.id !== id);
     });
   }
+
   return (
-    <View style={styles.appcontainer}>
-      <GoalInput HandlerBottonePremuto={HandlerBottonePremuto} />
-      <View style={styles.goalsContainer}>
-        <Text title="I tuoi obbiettivi"></Text>
-        <FlatList
-          data={listaObbiettivi}
-          renderItem={(elemento) => {
-            return <GoalsItem text={elemento.item.text} id={elemento.item.id} onDeleteItem={handlerCancellaGoal} />;
-          }}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
-          alwaysBounceVertical={false}
-        ></FlatList>
-      </View>
+    //contenitore dell'intera applicazione
+    <View style={s.appContainer}>
+      <ImageBackground source={image} resizeMode="cover" style={s.image}>
+        <GoalInput
+          visibile={finestraVisibile}
+          handlerBottonePremuto={handlerBottonePremuto}
+          chiudiFinestra={chiudiFinestra}
+        />
+
+        <View style={s.appContainer}>
+          <Button
+            title="Nuovo obiettivo"
+            color="green"
+            onPress={apriFinestra}
+          />
+          <GoalInput
+            visibile={finestraVisibile}
+            handlerBottonePremuto={handlerBottonePremuto}
+            chiudiFinestra={chiudiFinestra}
+          />
+          <FlatList
+            data={listaObiettivi}
+            renderItem={(elemento) => {
+              return (
+                <GoalsItem
+                  text={elemento.item.text}
+                  id={elemento.item.id}
+                  onDeleteItem={handlerCancellaGoal}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+            alwaysBounceVertical={false}
+          />
+        </View>
+      </ImageBackground>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  appcontainer: {
+const s = StyleSheet.create({
+  appContainer: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 0,
+    paddingTop: 50,
+    //paddingHorizontal: 16,
   },
-  goalsContainer:{
-    flex:5
-  }
+
+  goalsContainer: {
+    flex: 5,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
+  },
 });
