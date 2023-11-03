@@ -21,15 +21,20 @@ export default function App() {
       },
     ]);
   }
+  function handlerCancellaGoal(id) {
+    setLista((listaCorrente) => {
+      return listaCorrente.filter((obiettivo)=>obiettivo.id!==id);
+    });
+  }
   return (
     <View style={styles.appcontainer}>
-      <GoalInput HandlerBottonePremuto={HandlerBottonePremuto}/>
+      <GoalInput HandlerBottonePremuto={HandlerBottonePremuto} />
       <View style={styles.goalsContainer}>
         <Text title="I tuoi obbiettivi"></Text>
         <FlatList
           data={listaObbiettivi}
           renderItem={(elemento) => {
-            return <GoalsItem text={elemento.item.text} />;
+            return <GoalsItem text={elemento.item.text} id={elemento.item.id} onDeleteItem={handlerCancellaGoal} />;
           }}
           keyExtractor={(item, index) => {
             return item.id;
