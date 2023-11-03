@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   appcontainer: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 50,
+    paddingTop: 0,
   },
   goalsContainer:{
     flex:5
