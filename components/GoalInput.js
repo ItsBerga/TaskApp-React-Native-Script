@@ -10,7 +10,7 @@ import {
 
 export default function GoalInput(props) {
   const image = {
-    uri: "https://www.traccedisardegna.it/sites/default/files/logo/spiaggia_pollu_lotzorai.jpg",
+    uri: "https://downloadwap.com/thumbs2/wallpapers/p2/2019/nature/44/189c07fc13303830.jpg",
   };
   // definiamo una variabile che memorizza lo stato del campo di testo
   const [testoInserito, setTesto] = useState("");
@@ -37,10 +37,10 @@ export default function GoalInput(props) {
           />
           <View style={s.buttonContainer}>
             <View style={s.button}>
-              <Button title="add" color={'green'} onPress={aggiungiObiettivo} />
+              <Button title="add" color={'#3a9fbf'} onPress={aggiungiObiettivo} />
             </View>
             <View style={s.button}>
-              <Button title="exit" color={'red'} onPress={props.chiudiFinestra} />
+              <Button title="exit" color={'orange'} onPress={props.chiudiFinestra} />
             </View>
           </View>
         </View>
