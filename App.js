@@ -50,15 +50,9 @@ const styles = StyleSheet.create({
   appcontainer: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor: "#fff",
-    //alignItems: "center",
-    //justifyContent: "center",
-    paddingTop: 40,
+    paddingTop: 50,
   },
-  titolo: {
-    margin: 16,
-    padding: 16,
-    borderWidth: 2,
-    borderColor: "blue",
-  },
+  goalsContainer:{
+    flex:5
+  }
 });
